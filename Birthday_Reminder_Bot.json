@@ -1,0 +1,165 @@
+{
+  "name": "Birthday Reminder Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.twilio.com/2010-04-01/Accounts/AC08d48c02d381d2e0a2c7dbf79ec32ea8/Messages.json",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBasicAuth",
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "From",
+              "value": "whatsapp:+14155238886"
+            },
+            {
+              "name": "To",
+              "value": "=whatsapp:{{$(\"Code to check date and return parameters\").item.json[\"phone\"]}}"
+            },
+            {
+              "name": "Body",
+              "value": "=Happy Birthday,{{$(\"Code to check date and return parameters\").item.json[\"name\"]}} 🎉 🎂"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        800,
+        120
+      ],
+      "id": "5d1823d5-afc7-4b6a-bcf5-3e97598407d7",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "dpKiRI6Oo68gfXxu",
+          "name": "Unnamed credential"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "\n**This code node contains a hardcoded list of birthdays in JSON format.\nIt checks if today’s date matches any birthday and returns the matching name and phone number for the next HTTP node to send a message.** ",
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        380,
+        80
+      ],
+      "typeVersion": 1,
+      "id": "9c69184a-d9db-4024-98d5-74ab46ae0ff0",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { name: \"Aachal\", dob: \"05-16\", phone: \"+919699303547\" } },\n  { json: { name: \"Sujal\", dob: \"05-15\", phone: \"+919405917092\" } },\n  { json: { name: \"Charlie\", dob: \"08-20\", phone: \"+911234567890\" } }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        -80
+      ],
+      "id": "68447a41-92ee-4ce1-b9c8-002c92ad1ba1",
+      "name": "Birthday List"
+    },
+    {
+      "parameters": {
+        "jsCode": "const today = new Date();\nconst todayMonthDay = (\"0\" + (today.getMonth() + 1)).slice(-2) + \"-\" + (\"0\" + today.getDate()).slice(-2);\n\n// Filter for today's birthdays and return only name and phone\nconst birthdayMatches = items.filter(item => item.json.dob === todayMonthDay);\n\nreturn birthdayMatches.map(item => {\n  return {\n    json: {\n      name: item.json.name,\n      phone: item.json.phone\n    }\n  };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        600,
+        -80
+      ],
+      "id": "5cb0c2c4-ce1e-43d8-89bb-2ce68c0dafab",
+      "name": "Code to check date and return parameters"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            },
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        -80
+      ],
+      "id": "61746416-e4f9-4f4f-a7e8-21a2c688b16d",
+      "name": "Trigger (daily 9AM)"
+    },
+    {
+      "parameters": {
+        "content": "\n**The HTTP node sends a personalized birthday message via WhatsApp to matching contacts using Twilio.** "
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        800,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "1395df21-6cd7-4872-b8db-734903b0020e",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Birthday List": {
+      "main": [
+        [
+          {
+            "node": "Code to check date and return parameters",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code to check date and return parameters": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger (daily 9AM)": {
+      "main": [
+        [
+          {
+            "node": "Birthday List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "87c57038-5e95-4d09-99dc-c6a50224be10",
+  "meta": {
+    "instanceId": "decad1d6c1daca48bb0390529006fd4a3c43e3fbeccb8caa15bb26a3ec439b87"
+  },
+  "id": "WJqULCr98sNLWJHh",
+  "tags": []
+}
