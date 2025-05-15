@@ -4,7 +4,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.twilio.com/2010-04-01/Accounts/AC08d48c02d381d2e0a2c7dbf79ec32ea8/Messages.json",
+        "url": "https://api.twilio.com/2010-04-01/Accounts/"Your Twilio Account SID"/Messages.json",
         "authentication": "genericCredentialType",
         "genericAuthType": "httpBasicAuth",
         "sendBody": true,
@@ -13,7 +13,7 @@
           "parameters": [
             {
               "name": "From",
-              "value": "whatsapp:+14155238886"
+              "value": "whatsapp:your twilio sandbox number"
             },
             {
               "name": "To",
