@@ -20,8 +20,11 @@ This repository showcases intelligent automation workflows built using [n8n](htt
 
 ---
 
-## 📸 Screenshot
-![n8n Workflows](images/workflow_screenshot.png)
+### 📸 Automated Birthday Reminder Bot
+![n8n Workflows](Birthday_Reminder_Bot_System.png)
+
+### 📸 Automated Email Bot
+![n8n Workflows](Email-Bot.png)
 
 ---
 
