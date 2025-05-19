@@ -1,27 +1,42 @@
-# 🎂 WhatsApp Birthday Automation using n8n
+# 🤖 n8n Workflow Automation & AI Agents
 
-This n8n workflow automates birthday greetings via WhatsApp!  
-It checks a list of contacts daily and sends personalized birthday wishes.
+This repository showcases intelligent automation workflows built using [n8n](https://n8n.io/), a powerful open-source workflow automation tool. The aim is to automate tasks and build smart agents that integrate with APIs, AI models, and third-party services—no heavy coding required.
 
-## 💡 Features
-- Hardcoded birthday list using a Code node (JSON format)
-- Matches today's date with contact birthdays
-- Sends WhatsApp messages using HTTP node (e.g., Twilio or WhatsApp Cloud API)
-
-## ⚙️ How It Works
-1. **Code Node**: Contains contact list with name, DOB (`MM-DD`), and phone.
-2. **Filter Node**: Compares today's date with the `dob`.
-3. **HTTP Node**: Sends WhatsApp message using formatted data.
-
-## 📸 Workflow Screenshot
-![Workflow Screenshot](C:\Users\dhana\OneDrive\Pictures\Screenshots\Screenshot 2025-05-15 224233.png)
-
-## 🛠️ To Use
-1. Import the `.json` workflow in your n8n instance.
-2. Configure the HTTP node with your WhatsApp API (Twilio, etc.).
-3. Run or schedule it daily.
+## ⚙️ Tech Stack
+- **n8n** – Visual workflow automation
+- **Gemini (Google AI)** – For generating conversational responses
+- **Twilio** – For WhatsApp messaging
+- **Gmail** – Email integration
+- **n8n Nodes** – Trigger, Gemini, HTTP Request, Gmail, Webhook, Storage
 
 ---
 
-Feel free to customize the birthday list and message style!
+## 📌 Projects Included
+
+| Project Name               | Description                                                                                     |
+|---------------------------|-------------------------------------------------------------------------------------------------|
+| `Birthday_Reminder_Bot`   | A smart WhatsApp bot using **Twilio** trigger + **Gemini AI**. Sends birthday reminders through WhatsApp using natural language responses. |
+| `Email_Bot`               | A simple AI-powered agent combining **Gemini chat model**, **Gmail**, and **n8n's storage**. It automatically handles and replies to emails. |
+
+---
+
+## 📸 Screenshot
+![n8n Workflows](images/workflow_screenshot.png)
+
+---
+
+## 🧠 Highlights
+- AI Agents designed using **Gemini models**.
+- End-to-end workflow automation through **n8n UI**.
+- Real-world integrations using **Twilio** and **Gmail**.
+- Reusable JSON workflow files (`.json`) for easy import.
+
+---
+
+## 📂 How to Use
+1. Clone this repository.
+2. Import any `.json` file into your n8n workspace.
+3. Update credentials (Twilio/Gmail) and test the workflow.
+
+---
 
