@@ -1,0 +1,158 @@
+{
+  "name": "Email-Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        180,
+        -40
+      ],
+      "id": "dd118a1f-621a-48fa-a6ac-64b014adeacd",
+      "name": "When chat message received",
+      "webhookId": "996eacb6-237a-496f-9873-7656a7015db2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        340,
+        -40
+      ],
+      "id": "92bcaa40-d979-4c44-88b4-e86e6316bbd8",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        120
+      ],
+      "id": "dada2058-2930-4f8f-8de1-4049d50dd503",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', `the email should always be signed off as Dhanashree`, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        120
+      ],
+      "id": "2cb38c46-aafa-466e-9701-aac4416f4b95",
+      "name": "Gmail",
+      "webhookId": "a4bd7365-9f78-4fab-9e9f-d167c1dbb73e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "x8XafGjmeld7bHtd",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-1.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        240,
+        140
+      ],
+      "id": "43dafb39-4439-497d-97af-8d55f62680d4",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "l2qDrxYPciCZnUK8",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "This Bot uses the Gemini Chat Model to generate email content and then sends the generated email directly from your Gmail account. It automates the process of composing and sending emails using AI-generated text.",
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        660,
+        40
+      ],
+      "typeVersion": 1,
+      "id": "0efb1711-f26c-485c-b103-d2b4fd931e26",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0e2cece4-9875-4427-aac2-b88b0f074e91",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "decad1d6c1daca48bb0390529006fd4a3c43e3fbeccb8caa15bb26a3ec439b87"
+  },
+  "id": "pD4PLY0FY5IxV4mB",
+  "tags": []
+}
